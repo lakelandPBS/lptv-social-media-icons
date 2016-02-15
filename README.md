@@ -1,2 +1,2 @@
 # lptv-widgets
-Various WordPress widgets to be used on LPTV.org.
+This plugin is meant to house any WordPress widgets we use for LPTV.org. All widgets shall use the prefix "LPTV" to keep things organized.
