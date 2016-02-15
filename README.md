@@ -1,2 +1,2 @@
-# lptv-widgets
-This plugin is meant to house any WordPress widgets we use for LPTV.org. All widgets shall use the prefix "LPTV" to keep things organized.
+# LPTV Social Media Icons Widget 
+This WordPress plugin adds a sidebar widget that will display social media icons that link to LPTV's social media accounts.
