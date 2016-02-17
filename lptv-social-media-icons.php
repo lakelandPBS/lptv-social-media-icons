@@ -9,7 +9,6 @@ Author URI:   http://webunraveling.com
 */
 
 
-
 // Get the admin options
 require_once( dirname(__file__) . '/admin/admin-options.php' );
 

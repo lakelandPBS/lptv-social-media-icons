@@ -43,11 +43,25 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
+
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
 
-		echo "socialize.";
+		echo '<div class="lptv-social-media-icons">';
+
+		$accts = array_keys($instance);
+
+		foreach ($accts as $acct) {
+			if ( ! empty($instance[$acct]) && $acct != 'title' ) { ?>
+				<a class="lptv-social-media-icons-link" target="_blank" href="<?php echo $instance[$acct]; ?>">
+					<img class="lptv-social-media-icons-icon" src="<?php echo plugins_url('/lptv-social-media-icons/images/icon-' . $acct . '.png'); ?>" />
+				</a>
+				<?
+			}
+		}
+
+		echo '</div>'; // end lptv-social-media-icons
 
 		echo $args['after_widget'];
 	}
@@ -61,10 +75,28 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Connect with LPTV', 'lptv-sociail-media-icons' );
+		$facebook = ! empty( $instance['facebook'] ) ? $instance['facebook'] : '';
+		$twitter = ! empty( $instance['twitter'] ) ? $instance['twitter'] : '';
+		$youtube = ! empty( $instance['youtube'] ) ? $instance['youtube'] : '';
+		$instagram = ! empty( $instance['instagram'] ) ? $instance['instagram'] : '';
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+
+		<label for="giving-instructions">Please enter the URL for each social media account you would like displayed.</label>
+
+		<label for="<?php echo $this->get_field_id( 'facebook' ); ?>"><?php _e( 'Facebook:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'facebook' ); ?>" name="<?php echo $this->get_field_name( 'facebook' ); ?>" type="text" value="<?php echo esc_attr( $facebook ); ?>">
+
+		<label for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'Twitter:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'twitter' ); ?>" name="<?php echo $this->get_field_name( 'twitter' ); ?>" type="text" value="<?php echo esc_attr( $twitter ); ?>">
+
+		<label for="<?php echo $this->get_field_id( 'youtube' ); ?>"><?php _e( 'YouTube:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'youtube' ); ?>" name="<?php echo $this->get_field_name( 'youtube' ); ?>" type="text" value="<?php echo esc_attr( $youtube ); ?>">
+
+		<label for="<?php echo $this->get_field_id( 'instagram' ); ?>"><?php _e( 'Instagram:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'instagram' ); ?>" name="<?php echo $this->get_field_name( 'instagram' ); ?>" type="text" value="<?php echo esc_attr( $instagram ); ?>">
 		</p>
 		<?php
 	}
@@ -82,6 +114,10 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['twitter'] = ( ! empty( $new_instance['twitter'] ) ) ? strip_tags( $new_instance['twitter'] ) : '';
+		$instance['facebook'] = ( ! empty( $new_instance['facebook'] ) ) ? strip_tags( $new_instance['facebook'] ) : '';
+		$instance['youtube'] = ( ! empty( $new_instance['youtube'] ) ) ? strip_tags( $new_instance['youtube'] ) : '';
+		$instance['instagram'] = ( ! empty( $new_instance['instagram'] ) ) ? strip_tags( $new_instance['instagram'] ) : '';
 
 		return $instance;
 	}
