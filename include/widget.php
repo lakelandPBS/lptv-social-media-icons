@@ -6,19 +6,6 @@ function lptv_social_media_icons_register() {
 	register_widget( "LPTV_Social_Media_Icons" );
 }
 
-// Register the widget stylesheet
-add_action( 'wp_enqueue_scripts', 'lptv_widgets_register_css' );
-
-function lptv_widgets_register_css() {
-	wp_register_style(
-    'lptv-social-media-icons',
-    plugins_url( '/lptv-social-media-icons/style/css/lptv-social-media-icons.css' ),
-    array(),
-    date( 'Ymd', filemtime(esc_url(plugins_url('/style/css/lptv-social-media-icons.css', dirname(__FILE__)))) )
-  );
-	wp_enqueue_style( 'lptv-social-media-icons' );
-}
-
 // Create the widget output
 class LPTV_Social_Media_Icons extends WP_Widget {
 	/**
