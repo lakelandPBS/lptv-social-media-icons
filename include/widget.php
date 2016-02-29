@@ -40,10 +40,15 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$accts = array_keys($instance);
 
 		foreach ($accts as $acct) {
-			if ( ! empty($instance[$acct]) && $acct != 'title' ) { ?>
+			if ( ! empty($instance[$acct]) && $acct != 'title' && $acct != 'news' ) {
+				?>
 				<a class="lptv-social-media-icons-link" target="_blank" href="<?php echo $instance[$acct]; ?>">
 					<img class="lptv-social-media-icons-icon" src="<?php echo plugins_url('/lptv-social-media-icons/images/icon-' . $acct . '.png'); ?>" />
 				</a>
+				<?
+			} elseif ( $acct == 'news' ) {
+				?>
+				<a class="lptv-social-media-icons-button" href="<?php echo $instance[$acct]; ?>">About Lakeland News</a>
 				<?
 			}
 		}
@@ -61,11 +66,12 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Connect with LPTV', 'lptv-sociail-media-icons' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Connect with LPTV', 'lptv-social-media-icons' );
 		$facebook = ! empty( $instance['facebook'] ) ? $instance['facebook'] : '';
 		$twitter = ! empty( $instance['twitter'] ) ? $instance['twitter'] : '';
 		$youtube = ! empty( $instance['youtube'] ) ? $instance['youtube'] : '';
 		$instagram = ! empty( $instance['instagram'] ) ? $instance['instagram'] : '';
+		$news = ! empty( $instance['news'] ) ? $instance['news'] : '';
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
@@ -84,6 +90,9 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 
 		<label for="<?php echo $this->get_field_id( 'instagram' ); ?>"><?php _e( 'Instagram:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'instagram' ); ?>" name="<?php echo $this->get_field_name( 'instagram' ); ?>" type="text" value="<?php echo esc_attr( $instagram ); ?>">
+
+		<label for="<?php echo $this->get_field_id( 'news' ); ?>"><?php _e( 'Lakeland News About Page:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'news' ); ?>" name="<?php echo $this->get_field_name( 'news' ); ?>" type="text" value="<?php echo esc_attr( $news ); ?>">
 		</p>
 		<?php
 	}
@@ -105,6 +114,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$instance['facebook'] = ( ! empty( $new_instance['facebook'] ) ) ? strip_tags( $new_instance['facebook'] ) : '';
 		$instance['youtube'] = ( ! empty( $new_instance['youtube'] ) ) ? strip_tags( $new_instance['youtube'] ) : '';
 		$instance['instagram'] = ( ! empty( $new_instance['instagram'] ) ) ? strip_tags( $new_instance['instagram'] ) : '';
+		$instance['news'] = ( ! empty( $new_instance['news'] ) ) ? strip_tags( $new_instance['news'] ) : '';
 
 		return $instance;
 	}

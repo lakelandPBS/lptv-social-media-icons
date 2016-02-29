@@ -1,4 +1,36 @@
+.widget_lptv_social_media_icons {} // widget div created by WP
+
 .lptv-social-media-icons {
   text-align: center;
   width: 100%;
+}
+
+.lptv-social-media-icons-link {
+  display: inline-block;
+  margin: 0.1em 0.1em 0;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.lptv-social-media-icons-button {
+  clear: both;
+  display: block;
+  width: 80%;
+  color: #fff !important;
+  background-color: #0099da;
+  border-radius: 6px;
+  margin: 0.1em auto;
+  padding: 0.2em;
+
+  &:hover {
+    color: #fff !important;
+    background-color: lighten(#0099da, 5%);
+  }
+}
+
+.lptv-social-media-icons-icon {
+  clear: both;
+  display: block;
 }

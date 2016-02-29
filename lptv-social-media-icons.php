@@ -20,7 +20,7 @@ function lptv_widgets_register_css() {
    'lptv-social-media-icons',
    plugins_url( '/lptv-social-media-icons/style/css/lptv-social-media-icons.css' ),
    array(),
-   date( 'Ymd', filemtime(esc_url(plugins_url('/style/css/lptv-social-media-icons.css', dirname(__FILE__)))) )
+   filemtime( dirname(__FILE__) . '/style/css/lptv-social-media-icons.css' )
  );
 
  wp_enqueue_style( 'lptv-social-media-icons' );
