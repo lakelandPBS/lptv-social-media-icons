@@ -46,7 +46,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 					<img class="lptv-social-media-icons-icon" src="<?php echo plugins_url('/lptv-social-media-icons/images/icon-' . $acct . '.png'); ?>" />
 				</a>
 				<?
-			} elseif ( $acct == 'news' ) {
+			} elseif ( $acct == 'news' && $instance[$acct] ) {
 				?>
 				<a class="lptv-social-media-icons-button" href="<?php echo $instance[$acct]; ?>">About Lakeland News</a>
 				<?
