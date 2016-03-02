@@ -40,15 +40,15 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$accts = array_keys($instance);
 
 		foreach ($accts as $acct) {
-			if ( ! empty($instance[$acct]) && $acct != 'title' && $acct != 'news' ) {
+			if ( ! empty($instance[$acct]) && $acct != 'title' && $acct != 'about' ) {
 				?>
 				<a class="lptv-social-media-icons-link" target="_blank" href="<?php echo $instance[$acct]; ?>">
 					<img class="lptv-social-media-icons-icon" src="<?php echo plugins_url('/lptv-social-media-icons/images/icon-' . $acct . '.png'); ?>" />
 				</a>
 				<?
-			} elseif ( $acct == 'news' && $instance[$acct] ) {
+			} elseif ( $acct == 'about' && $instance[$acct] ) {
 				?>
-				<a class="lptv-social-media-icons-button" href="<?php echo $instance[$acct]; ?>">About Lakeland News</a>
+				<a class="lptv-social-media-icons-button" href="<?php echo $instance[$acct]; ?>">About Page</a>
 				<?
 			}
 		}
@@ -71,28 +71,28 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$twitter = ! empty( $instance['twitter'] ) ? $instance['twitter'] : '';
 		$youtube = ! empty( $instance['youtube'] ) ? $instance['youtube'] : '';
 		$instagram = ! empty( $instance['instagram'] ) ? $instance['instagram'] : '';
-		$news = ! empty( $instance['news'] ) ? $instance['news'] : '';
+		$about = ! empty( $instance['about'] ) ? $instance['about'] : '';
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 
-		<label for="giving-instructions">Enter the URL for each social media account you would like displayed.</label>
+		<span class="smi-giving-instructions">Enter the URL for each social media account you would like displayed.</span>
 
-		<label for="<?php echo $this->get_field_id( 'facebook' ); ?>"><?php _e( 'Facebook:' ); ?></label>
+		<label class="smi-label smi-first" for="<?php echo $this->get_field_id( 'facebook' ); ?>"><?php _e( 'Facebook:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'facebook' ); ?>" name="<?php echo $this->get_field_name( 'facebook' ); ?>" type="text" value="<?php echo esc_attr( $facebook ); ?>">
 
-		<label for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'Twitter:' ); ?></label>
+		<label class="smi-label" for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'Twitter:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'twitter' ); ?>" name="<?php echo $this->get_field_name( 'twitter' ); ?>" type="text" value="<?php echo esc_attr( $twitter ); ?>">
 
-		<label for="<?php echo $this->get_field_id( 'youtube' ); ?>"><?php _e( 'YouTube:' ); ?></label>
+		<label class="smi-label" for="<?php echo $this->get_field_id( 'youtube' ); ?>"><?php _e( 'YouTube:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'youtube' ); ?>" name="<?php echo $this->get_field_name( 'youtube' ); ?>" type="text" value="<?php echo esc_attr( $youtube ); ?>">
 
-		<label for="<?php echo $this->get_field_id( 'instagram' ); ?>"><?php _e( 'Instagram:' ); ?></label>
+		<label class="smi-label" for="<?php echo $this->get_field_id( 'instagram' ); ?>"><?php _e( 'Instagram:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'instagram' ); ?>" name="<?php echo $this->get_field_name( 'instagram' ); ?>" type="text" value="<?php echo esc_attr( $instagram ); ?>">
 
-		<label for="<?php echo $this->get_field_id( 'news' ); ?>"><?php _e( 'Lakeland News About Page:' ); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'news' ); ?>" name="<?php echo $this->get_field_name( 'news' ); ?>" type="text" value="<?php echo esc_attr( $news ); ?>">
+		<label class="smi-label" for="<?php echo $this->get_field_id( 'about' ); ?>"><?php _e( 'About Page:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'about' ); ?>" name="<?php echo $this->get_field_name( 'about' ); ?>" type="text" value="<?php echo esc_attr( $about ); ?>">
 		</p>
 		<?php
 	}
@@ -114,7 +114,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$instance['facebook'] = ( ! empty( $new_instance['facebook'] ) ) ? strip_tags( $new_instance['facebook'] ) : '';
 		$instance['youtube'] = ( ! empty( $new_instance['youtube'] ) ) ? strip_tags( $new_instance['youtube'] ) : '';
 		$instance['instagram'] = ( ! empty( $new_instance['instagram'] ) ) ? strip_tags( $new_instance['instagram'] ) : '';
-		$instance['news'] = ( ! empty( $new_instance['news'] ) ) ? strip_tags( $new_instance['news'] ) : '';
+		$instance['about'] = ( ! empty( $new_instance['about'] ) ) ? strip_tags( $new_instance['about'] ) : '';
 
 		return $instance;
 	}
