@@ -1,18 +1,14 @@
 <?php
 /*
 Plugin Name:  LPTV Social Media Icons
-Description:  Produces sidebar widget with social media icons that link to LPTV's social media accounts.
+Description:  A widget that displays social media icons based on the URLs provided. 
 Plugin URI:   https://github.com/lakelandPBS/lptv-widgets
 Version:      1.0
 Author:       Jason Raveling
 Author URI:   http://webunraveling.com
 */
 
-/* Yep, not much here. Setting up this file structure to allow for future
- * modifications in case we want to make it more complex
- */
-
-// Register the widget stylesheet
+// Register the widget stylesheets
 add_action( 'wp_enqueue_scripts', 'lptv_widgets_register_css' ); // front-end
 add_action('admin_enqueue_scripts', 'lptv_widgets_register_admin_css'); // admin
 
