@@ -40,7 +40,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$accts = array_keys($instance);
 
 		foreach ($accts as $acct) {
-			if ( ! empty($instance[$acct]) && $acct != 'title' && $acct != 'about' ) {
+			if ( ! empty($instance[$acct]) && $acct != 'title' && $acct != 'about' && $acct != 'about-text' ) {
 				?>
 				<a class="lptv-social-media-icons-link" target="_blank" href="<?php echo $instance[$acct]; ?>">
 					<img class="lptv-social-media-icons-icon" src="<?php echo plugins_url('/lptv-social-media-icons/images/icon-' . $acct . '.png'); ?>" />
@@ -48,7 +48,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 				<?
 			} elseif ( $acct == 'about' && $instance[$acct] ) {
 				?>
-				<a class="lptv-social-media-icons-button" href="<?php echo $instance[$acct]; ?>">About Page</a>
+				<a class="lptv-social-media-icons-button" href="<?php echo $instance[$acct]; ?>"><?php echo $instance['about-text']; ?></a>
 				<?
 			}
 		}
@@ -72,6 +72,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$youtube = ! empty( $instance['youtube'] ) ? $instance['youtube'] : '';
 		$instagram = ! empty( $instance['instagram'] ) ? $instance['instagram'] : '';
 		$about = ! empty( $instance['about'] ) ? $instance['about'] : '';
+		$aboutText = ! empty( $instance['about-text'] ) ? $instance['about-text'] : __( 'About', 'lptv-social-media-icons' );
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
@@ -93,6 +94,9 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 
 		<label class="smi-label" for="<?php echo $this->get_field_id( 'about' ); ?>"><?php _e( 'About Page:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'about' ); ?>" name="<?php echo $this->get_field_name( 'about' ); ?>" type="text" value="<?php echo esc_attr( $about ); ?>">
+
+		<label class="smi-label" for="<?php echo $this->get_field_id( 'about-text' ); ?>"><?php _e( 'About Button Text:' ); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'about-text' ); ?>" name="<?php echo $this->get_field_name( 'about-text' ); ?>" type="text" value="<?php echo esc_attr( $aboutText ); ?>">
 		</p>
 		<?php
 	}
@@ -115,6 +119,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
 		$instance['youtube'] = ( ! empty( $new_instance['youtube'] ) ) ? strip_tags( $new_instance['youtube'] ) : '';
 		$instance['instagram'] = ( ! empty( $new_instance['instagram'] ) ) ? strip_tags( $new_instance['instagram'] ) : '';
 		$instance['about'] = ( ! empty( $new_instance['about'] ) ) ? strip_tags( $new_instance['about'] ) : '';
+		$instance['about-text'] = ( ! empty( $new_instance['about-text'] ) ) ? strip_tags( $new_instance['about-text'] ) : '';
 
 		return $instance;
 	}
