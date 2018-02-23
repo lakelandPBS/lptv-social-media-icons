@@ -35,6 +35,6 @@ function lptv_widgets_register_admin_css() {
 }
 
 // Register and get the widget
-require_once( dirname(__file__) . '/include/widget.php' );
+require_once( 'widget.php' );
 
 ?>
