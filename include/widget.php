@@ -7,7 +7,8 @@ function lptv_social_media_icons_register() {
 }
 
 // Create the widget output
-class LPTV_Social_Media_Icons extends WP_Widget {
+class LPTV_Social_Media_Icons extends WP_Widget
+{
     /**
      * Register widget with WordPress.
      */
@@ -16,7 +17,7 @@ class LPTV_Social_Media_Icons extends WP_Widget {
         parent::__construct(
             'lptv_social_media_icons', // Base ID
             __( "LPTV Social Media Icons", 'lptv-sociail-media-icons' ), // Name
-            array( 'description' => __( "Display social media icons with links to LPTV's social media accounts.", 'lptv-sociail-media-icons' ) ) // Args
+            array( 'description' => __( "Display social media icons as links to your social media accounts.", 'lptv-sociail-media-icons' ) ) // Args
         );
     }
 
@@ -29,33 +30,27 @@ class LPTV_Social_Media_Icons extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
-        echo $args['before_widget'];
-
-        if ( ! empty( $instance['title'] ) ) {
-            echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-        }
-
-        echo '<div class="lptv-social-media-icons">';
+        $out = $args['before_widget'];
+        $out .= ( ! empty($instance['title']) ? $args['before_title'] . apply_filters('widget_title', $instance['title']) . $args['after_title'] : '' );
+        $out .= '<div class="lptv-social-media-icons">';
 
         $accts = array_keys($instance);
 
         foreach ($accts as $acct) {
+
             if ( ! empty($instance[$acct]) && $acct != 'title' && $acct != 'about' && $acct != 'about-text' ) {
-?>
-                                <a class="lptv-social-media-icons-link" target="_blank" href="<?php echo $instance[$acct]; ?>">
-                                        <img class="lptv-social-media-icons-icon" src="<?php echo plugins_url('/lptv-social-media-icons/images/icon-' . $acct . '.png'); ?>" />
-                                </a>
-<?
+                $out .= '<a class="lptv-social-media-icons-link" target="_blank" href="' . $instance[$acct] . '">';
+                $out .= '<img class="lptv-social-media-icons-icon" src="' . plugins_url('/lptv-social-media-icons/images/icon-' . $acct . '.png') . '" />';
+                $out .= '</a>';
             } elseif ( $acct == 'about' && $instance[$acct] ) {
-?>
-                                <a class="lptv-social-media-icons-button" href="<?php echo $instance[$acct]; ?>"><?php echo $instance['about-text']; ?></a>
-<?
+                $out .= '<a class="lptv-social-media-icons-button" href="' . $instance[$acct] . '">' . $instance['about-text'] . '</a>';
             }
         }
 
-        echo '</div>'; // end lptv-social-media-icons
+        $out .= '</div>'; // end lptv-social-media-icons
+        $out .= $args['after_widget'];
 
-        echo $args['after_widget'];
+        return $out;
     }
 
     /**
@@ -66,39 +61,39 @@ class LPTV_Social_Media_Icons extends WP_Widget {
      * @param array $instance Previously saved values from database.
      */
     public function form( $instance ) {
-        $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Connect with LPTV', 'lptv-social-media-icons' );
-        $facebook = ! empty( $instance['facebook'] ) ? $instance['facebook'] : '';
-        $twitter = ! empty( $instance['twitter'] ) ? $instance['twitter'] : '';
-        $youtube = ! empty( $instance['youtube'] ) ? $instance['youtube'] : '';
-        $instagram = ! empty( $instance['instagram'] ) ? $instance['instagram'] : '';
-        $about = ! empty( $instance['about'] ) ? $instance['about'] : '';
-        $aboutText = ! empty( $instance['about-text'] ) ? $instance['about-text'] : __( 'About', 'lptv-social-media-icons' );
-?>
-                <p>
-                <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+        $title = ( ! empty($instance['title']) ? $instance['title'] : __('Connect with LPTV', 'lptv-social-media-icons') );
+        $facebook = ( ! empty($instance['facebook']) ? $instance['facebook'] : '' );
+        $twitter = ( ! empty($instance['twitter']) ? $instance['twitter'] : '' );
+        $youtube = ( ! empty($instance['youtube']) ? $instance['youtube'] : '' );
+        $instagram = ( ! empty($instance['instagram']) ? $instance['instagram'] : '' );
+        $about = ( ! empty($instance['about']) ? $instance['about'] : '' );
+        $aboutText = ( ! empty($instance['about-text']) ? $instance['about-text'] : __('About', 'lptv-social-media-icons') );
 
-                <span class="smi-giving-instructions">Enter the URL for each social media account you would like displayed.</span>
+        echo '<p>'; // not sure we need this 
+        
+        echo '<label for="' . $this->get_field_id('title') . '">' . _e('Title:') . '</label>';
+        echo '<input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '">';
+        echo '<p class="smi-giving-instructions">Enter the URL for each social media account you would like displayed.</p>';
 
-                <label class="smi-label smi-first" for="<?php echo $this->get_field_id( 'facebook' ); ?>"><?php _e( 'Facebook:' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'facebook' ); ?>" name="<?php echo $this->get_field_name( 'facebook' ); ?>" type="text" value="<?php echo esc_attr( $facebook ); ?>">
+        echo '<label class="smi-label smi-first" for="' . $this->get_field_id('facebook') . '">' . _e('Facebook:') . '</label>';
+        echo '<input class="widefat" id="' . $this->get_field_id('facebook') . '" name="' . $this->get_field_name('facebook') . '" type="text" value="' . esc_attr($facebook) . '">';
 
-                <label class="smi-label" for="<?php echo $this->get_field_id( 'twitter' ); ?>"><?php _e( 'Twitter:' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'twitter' ); ?>" name="<?php echo $this->get_field_name( 'twitter' ); ?>" type="text" value="<?php echo esc_attr( $twitter ); ?>">
+        echo '<label class="smi-label" for="' . $this->get_field_id('twitter') . '">' . _e('Twitter:') . '</label>';
+        echo '<input class="widefat" id="' . $this->get_field_id('twitter') . '" name="' . $this->get_field_name('twitter') . '" type="text" value="' . esc_attr($twitter) . '">';
 
-                <label class="smi-label" for="<?php echo $this->get_field_id( 'youtube' ); ?>"><?php _e( 'YouTube:' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'youtube' ); ?>" name="<?php echo $this->get_field_name( 'youtube' ); ?>" type="text" value="<?php echo esc_attr( $youtube ); ?>">
+        echo '<label class="smi-label" for="' . $this->get_field_id('youtube') . '">' . _e('YouTube:') . '</label>';
+        echo '<input class="widefat" id="' . $this->get_field_id('youtube') . '" name="' . $this->get_field_name('youtube') . '" type="text" value="' . esc_attr($youtube) . '">';
 
-                <label class="smi-label" for="<?php echo $this->get_field_id( 'instagram' ); ?>"><?php _e( 'Instagram:' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'instagram' ); ?>" name="<?php echo $this->get_field_name( 'instagram' ); ?>" type="text" value="<?php echo esc_attr( $instagram ); ?>">
+        echo '<label class="smi-label" for="' . $this->get_field_id('instagram') . '"' . _e('Instagram:') . '</label>';
+        echo '<input class="widefat" id="' . $this->get_field_id('instagram') . '" name="' . $this->get_field_name('instagram') . '>" type="text" value="' . esc_attr($instagram) . '">';
 
-                <label class="smi-label" for="<?php echo $this->get_field_id( 'about' ); ?>"><?php _e( 'About Page:' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'about' ); ?>" name="<?php echo $this->get_field_name( 'about' ); ?>" type="text" value="<?php echo esc_attr( $about ); ?>">
+        echo '<label class="smi-label" for="' . $this->get_field_id('about') . '">' . _e( 'About Page:' ) . '</label>';
+        echo '<input class="widefat" id="' . $this->get_field_id('about') . '" name="' . $this->get_field_name('about') . '>" type="text" value="' . esc_attr($about) . '">';
 
-                <label class="smi-label" for="<?php echo $this->get_field_id( 'about-text' ); ?>"><?php _e( 'About Button Text:' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'about-text' ); ?>" name="<?php echo $this->get_field_name( 'about-text' ); ?>" type="text" value="<?php echo esc_attr( $aboutText ); ?>">
-                </p>
-<?php
+        echo '<label class="smi-label" for="' . $this->get_field_id('about-text') . '">' . _e('About Button Text:') . '</label>';
+        echo '<input class="widefat" id="' . $this->get_field_id('about-text') . '" name="' . $this->get_field_name('about-text') . '>" type="text" value="' . esc_attr($aboutText) . '">';
+
+        echo '</p>'; // not sure we need this
     }
 
     /**
@@ -113,13 +108,13 @@ class LPTV_Social_Media_Icons extends WP_Widget {
      */
     public function update( $new_instance, $old_instance ) {
         $instance = array();
-        $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-        $instance['twitter'] = ( ! empty( $new_instance['twitter'] ) ) ? strip_tags( $new_instance['twitter'] ) : '';
-        $instance['facebook'] = ( ! empty( $new_instance['facebook'] ) ) ? strip_tags( $new_instance['facebook'] ) : '';
-        $instance['youtube'] = ( ! empty( $new_instance['youtube'] ) ) ? strip_tags( $new_instance['youtube'] ) : '';
-        $instance['instagram'] = ( ! empty( $new_instance['instagram'] ) ) ? strip_tags( $new_instance['instagram'] ) : '';
-        $instance['about'] = ( ! empty( $new_instance['about'] ) ) ? strip_tags( $new_instance['about'] ) : '';
-        $instance['about-text'] = ( ! empty( $new_instance['about-text'] ) ) ? strip_tags( $new_instance['about-text'] ) : '';
+        $instance['title'] = ( ! empty($new_instance['title']) ? strip_tags($new_instance['title']) : '' );
+        $instance['twitter'] = ( ! empty($new_instance['twitter']) ? strip_tags($new_instance['twitter']) : '' );
+        $instance['facebook'] = ( ! empty($new_instance['facebook']) ? strip_tags($new_instance['facebook']) : '' );
+        $instance['youtube'] = ( ! empty($new_instance['youtube']) ? strip_tags($new_instance['youtube']) : '' ) ;
+        $instance['instagram'] = ( ! empty($new_instance['instagram']) ? strip_tags($new_instance['instagram']) : '';
+        $instance['about'] = ( ! empty($new_instance['about']) ? strip_tags($new_instance['about']) : '' );
+        $instance['about-text'] = ( ! empty($new_instance['about-text']) ? strip_tags($new_instance['about-text'])  : '' );
 
         return $instance;
     }
