@@ -15,7 +15,7 @@ add_action( 'admin_enqueue_scripts', 'lptv_widgets_register_admin_css' ); // adm
 function lptv_widgets_register_css() {
     wp_register_style(
         'lptv-social-media-icons',
-        plugins_url( '/lptv-social-media-icons/style/css/lptv-social-media-icons.css' ),
+        get_template_directory_uri() . '/include/lptv-functions/social-media-icons/style/css/lptv-social-media-icons.css',
         array(),
         filemtime( dirname(__FILE__) . '/style/css/lptv-social-media-icons.css' )
     );
@@ -26,7 +26,7 @@ function lptv_widgets_register_css() {
 function lptv_widgets_register_admin_css() {
     wp_register_style(
         'lptv-social-media-icons-admin',
-        plugins_url( '/lptv-social-media-icons/style/css/lptv-social-media-icons-admin.css' ),
+        get_template_directory_uri() . '/include/lptv-functions/social-media-icons/style/css/lptv-social-media-icons-admin.css',
         array(),
         filemtime( dirname(__FILE__) . '/style/css/lptv-social-media-icons-admin.css' )
     );

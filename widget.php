@@ -45,7 +45,7 @@ class LPTV_Social_Media_Icons extends WP_Widget
                 echo '<a class="lptv-social-media-icons-button" href="' . $instance[$acct] . '">' . $instance['button2-text'] . '</a>';
             } else {
                 echo '<a class="lptv-social-media-icons-link" target="_blank" href="' . $instance[$acct] . '">';
-                echo '<img class="lptv-social-media-icons-icon" src="' . plugins_url('/images/icon-' . $acct . '.png', __FILE__) . '" />';
+                echo '<img class="lptv-social-media-icons-icon" src="' . get_template_directory_uri() . '/include/lptv-functions/social-media-icons/images/icon-' . $acct . '.png' . '" />';
                 echo '</a>';
             }
         }
