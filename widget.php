@@ -37,16 +37,20 @@ class LPTV_Social_Media_Icons extends WP_Widget
         $accts = array_keys($instance);
 
         foreach ($accts as $acct) {
-            if ( $acct == 'title' || $acct == 'button1-text' || $acct == 'button2-text' ) {
-                // these are handled elsewhere
-            } elseif ( $acct == 'button1' ) {
-                echo '<a class="lptv-social-media-icons-button" href="' . $instance[$acct] . '">' . $instance['button1-text'] . '</a>';
-            } elseif ( $acct == 'button2' ) {
-                echo '<a class="lptv-social-media-icons-button" href="' . $instance[$acct] . '">' . $instance['button2-text'] . '</a>';
-            } else {
+            if ($acct == 'twitter' || $acct == 'facebook' ||  $acct == 'youtube' || $acct == 'instagram' ) {
+
                 echo '<a class="lptv-social-media-icons-link" target="_blank" href="' . $instance[$acct] . '">';
                 echo '<img class="lptv-social-media-icons-icon" src="' . get_template_directory_uri() . '/include/lptv-functions/social-media-icons/images/icon-' . $acct . '.png' . '" />';
                 echo '</a>';
+
+            } elseif ( $acct == 'button1' && ! empty($instance['button1-text']) ) {
+
+                echo '<a class="lptv-social-media-icons-button" href="' . $instance[$acct] . '">' . $instance['button1-text'] . '</a>';
+
+            } elseif ( $acct == 'button2' && ! empty($instance['button2-text']) ) {
+
+                echo '<a class="lptv-social-media-icons-button" href="' . $instance[$acct] . '">' . $instance['button2-text'] . '</a>';
+
             }
         }
 
