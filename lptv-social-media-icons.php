@@ -3,7 +3,7 @@
 Plugin Name:  LPTV Social Media Icons
 Description:  A widget that displays social media icons based on the URLs provided. 
 Plugin URI:   https://github.com/lakelandPBS/lptv-widgets
-Version:      1.0.1
+Version:      1.0.2
 Author:       Jason Raveling
 Author URI:   http://webunraveling.com
  */
